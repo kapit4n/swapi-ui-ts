@@ -3,4 +3,6 @@ interface ListItemData {
   descriptionFields: string[];
   dataSource: any;
   imagePlaceholder: string;
+  objectType: string;
+  mainRoute: string;
 }

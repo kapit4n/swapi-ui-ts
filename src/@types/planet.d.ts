@@ -1,4 +1,5 @@
 interface Planet {
+  id: number,
   name: string;
   diameter: number;
   rotation_period: number;
@@ -8,4 +9,5 @@ interface Planet {
   climate: string;
   terrain: string;
   surface_water: string;
+  url: string;
 }

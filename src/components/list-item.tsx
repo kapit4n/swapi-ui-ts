@@ -7,7 +7,7 @@ interface ListProps {
   onClickSetCurrent: (data: string) => void
 }
 
-export default function ListItem({ data, route, onClickSetCurrent }: ListProps) {
+export default function ListItem({ data, onClickSetCurrent }: ListProps) {
 
   const transform = (field: string) => {
     return field.replaceAll("_", " ")
@@ -15,7 +15,7 @@ export default function ListItem({ data, route, onClickSetCurrent }: ListProps) 
 
   return (
     <div className='list-item'>
-      <Link to={`/${route}/details/1`} onClick={() => onClickSetCurrent(data.dataSource['id'])}>
+      <Link to={`/${data.mainRoute}/details/${data.dataSource.id}`} onClick={() => onClickSetCurrent(data.dataSource['id'])}>
         <h2 className="list-item-title">{data.dataSource[data.titleField]}</h2>
       </Link>
       <div className="list-item-secondary">

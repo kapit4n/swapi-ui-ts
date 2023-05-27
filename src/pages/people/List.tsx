@@ -8,7 +8,7 @@ import List from "../../components/list";
 import ListItem from "../../components/list-item";
 import { loadPeople, setCurrent } from "../../actions/people";
 import { RootReducer } from '../../store';
-import { PERSON_FIELDS, PERSON_TITLE_FIELD, PERSON_IMAGE_PLACEHOLDER } from "../../constants";
+import { PERSON_FIELDS, PERSON_TITLE_FIELD, PERSON_IMAGE_PLACEHOLDER, PERSON_OBJECT_TYPE, PERSON_MAIN_ROUTE } from "../../constants";
 
 type AppState = ReturnType<typeof RootReducer>;
 
@@ -36,6 +36,8 @@ export const PersonList: React.FC<PersonListProps> = ({ list, loadPeople }) => {
     titleField: PERSON_TITLE_FIELD,
     descriptionFields: PERSON_FIELDS,
     imagePlaceholder: PERSON_IMAGE_PLACEHOLDER,
+    objectType: PERSON_OBJECT_TYPE,
+    mainRoute: PERSON_MAIN_ROUTE,
     dataSource: {}
   }
 
