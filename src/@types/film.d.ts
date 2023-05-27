@@ -7,4 +7,5 @@ interface Film {
   release_date: Date;
   created: string;
   edited: string;
+  url: string;
 }

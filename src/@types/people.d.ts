@@ -1,4 +1,5 @@
 interface Person {
+  id: number;
   name: string;
   birth_date: string;
   eye_color: string;
@@ -9,4 +10,5 @@ interface Person {
   skin_color: string;
   homeworld: string;
   created: string;
+  url: string;
 }
