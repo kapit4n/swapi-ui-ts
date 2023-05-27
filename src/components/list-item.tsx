@@ -22,7 +22,7 @@ export default function ListItem({ data, onClickSetCurrent }: ListProps) {
         <img src={data.imagePlaceholder} height="100" alt="placeholder"/>
         <div className="list-item-fields">
           {data.descriptionFields.map(fieldName => (
-            <div className="description-item">
+            <div className="description-item" key={fieldName}>
               <h3>{transform(fieldName)}:</h3>
               <p>{data.dataSource[fieldName]}</p>
             </div>
