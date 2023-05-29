@@ -7,14 +7,25 @@
 
 .list-item-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+  flex-direction: column;
+
+  @media only screen and (min-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
 }
 
 .list-item-secondary {
+
   display: flex;
-  gap: 3rem;
+  flex-direction: column;
+  gap: 1rem;
+
+  @media only screen and (min-width: 768px) {
+    display: flex;
+    gap: 3rem;
+  }
 }
 
 .list-item-img {
@@ -23,13 +34,19 @@
 }
 
 .list-item-fields {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  @media only screen and (min-width: 768px) {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 1rem;
+  }
 }
 
 .description-item {
   display: flex;
   gap: 0.4rem;
   align-items: center;
+  height: 2.5rem;
 }

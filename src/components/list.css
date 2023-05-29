@@ -2,4 +2,9 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 1400px;
+}
+
+.list-body {
+  width: 100%;
 }
