@@ -1,7 +1,7 @@
 export const API_URL = 'https://swapi.dev/api'
 
 export const PERSON_LIST_FIELDS = ["birth_year", "gender", "created"]
-export const PERSON_DETAILS_FIELDS = ["birth_year", "gender", "created", "hair_color", "skin_color", "eye_color"]
+export const PERSON_DETAILS_FIELDS = ["birth_date", "eye_color", "gender", "hair_color", "height", "mass", "skin_color", "homeworld", "created", "url",]
 export const PERSON_TITLE_FIELD = "name"
 export const PERSON_IMAGE_PLACEHOLDER = "https://thumbs.dreamstime.com/b/default-photo-placeholder-half-length-portrait-avatar-gray-color-116847351.jpg"
 export const PERSON_OBJECT_TYPE = 'people'
@@ -9,7 +9,7 @@ export const PERSON_MAIN_ROUTE = 'people'
 export const PERSON_SEARCH_ACTION = "PERSON_SEARCH_ACTION"
 
 export const PLANET_LIST_FIELDS = ["diameter", "gravity", "population", "climate"]
-export const PLANET_DETAILS_FIELDS = ["diameter", "rotation_period", "orbital_period", "gravity", "population", "climate"]
+export const PLANET_DETAILS_FIELDS = ["diameter", "rotation_period", "orbital_period", "gravity", "population", "climate", "terrain", "surface_water", "url",]
 export const PLANET_TITLE_FIELD = "name"
 export const PLANET_IMAGE_PLACEHOLDER = "https://cdn2.iconfinder.com/data/icons/vacation-51/512/planet_earth_map_placeholder_position_pin-512.png"
 export const PLANET_OBJECT_TYPE = 'planets'
@@ -39,6 +39,14 @@ export const VEHICLE_IMAGE_PLACEHOLDER = "https://www.freshnessmag.com/.image/t_
 export const VEHICLE_OBJECT_TYPE = 'vehicles'
 export const VEHICLE_MAIN_ROUTE = 'vehicles'
 export const VEHICLE_SEARCH_ACTION = 'VEHICLE_SEARCH_ACTION'
+  
+export const STARSHIP_LIST_FIELDS = ["model", "startship_class", "manufacturer", "cost_in_credits", "length"]
+export const STARSHIP_DETAILS_FIELDS = ["model", "startship_class", "manufacturer", "cost_in_credits", "length", "crew", "passenger", "passengers", "max_atmosphering_speed", "hyperdrive_rating", "MGLT", "cargo_capacity", "consumables", "url"]
+export const STARSHIP_TITLE_FIELD = "name"
+export const STARSHIP_IMAGE_PLACEHOLDER = "https://cdn.shopify.com/s/files/1/0594/4937/6920/articles/11-coolest-starships-in-the-star-wars-universe_800x.jpg?v=1665775994"
+export const STARSHIP_OBJECT_TYPE = 'starships'
+export const STARSHIP_MAIN_ROUTE = 'starships'
+export const STARSHIP_SEARCH_ACTION = 'STARSHIP_SEARCH_ACTION'
 
 export const HOME_OR_POPULAR_PAGE = "HOME_OR_POPULAR_PAGE"
 export const HOME_OR_POPULAR_PAGE_SEARCH_ACTION = "HOME_OR_POPULAR_PAGE_SEARCH_ACTION"
@@ -92,4 +100,12 @@ export const vehiclesListItemDataPlaceholder: ListItemData = {
   dataSource: {},
   objectType: VEHICLE_OBJECT_TYPE,
   mainRoute: VEHICLE_MAIN_ROUTE
+}
+
+export const starshipsListItemDataPlaceholder: ListItemData = {
+  titleField: STARSHIP_TITLE_FIELD,
+  descriptionFields: STARSHIP_LIST_FIELDS,
+  dataSource: {},
+  objectType: STARSHIP_OBJECT_TYPE,
+  mainRoute: STARSHIP_MAIN_ROUTE
 }

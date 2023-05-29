@@ -6,11 +6,13 @@ import Planets from "../pages/planets/List";
 import Films from "../pages/films/List";
 import Species from "../pages/species/List";
 import Vehicles from "../pages/vehicles/List";
+import Starships from "../pages/starships/List";
 import PersonDetails from "../pages/people/Details";
 import PlanetsDetails from "../pages/planets/Details";
 import FilmsDetails from "../pages/films/Details";
 import SpeciesDetails from "../pages/species/Details";
 import VehiclesDetails from "../pages/vehicles/Details";
+import StarshipsDetails from "../pages/starships/Details";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +44,10 @@ export const router = createBrowserRouter([
         element: <Vehicles />
       },
       {
+        path:"/starships",
+        element: <Starships />
+      },
+      {
         path:"people/details/:id",
         element: <PersonDetails />
       },
@@ -60,6 +66,10 @@ export const router = createBrowserRouter([
       {
         path:"vehicles/details/:id",
         element: <VehiclesDetails />
+      },
+      {
+        path:"starships/details/:id",
+        element: <StarshipsDetails />
       },
     ]
   },

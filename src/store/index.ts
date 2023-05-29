@@ -7,6 +7,7 @@ import { filmsReducer } from "../reducers/filmsReducer";
 import { peopleReducer } from "../reducers/peopleReducer";
 import { speciesReducer } from "../reducers/speciesReducer";
 import { vehiclesReducer } from "../reducers/vehiclesReducer";
+import { starshipsReducer } from "../reducers/starshipsReducer";
 
 const persistedState = loadState();
 
@@ -16,6 +17,7 @@ export const RootReducer = combineReducers({
   films: filmsReducer,
   species: speciesReducer,
   vehicles: vehiclesReducer,
+  starships: starshipsReducer,
   home: homeReducer,
 })
 
@@ -28,6 +30,7 @@ store.subscribe(() => {
     films: store.getState().films,
     species: store.getState().species,
     vehicles: store.getState().vehicles,
+    starships: store.getState().starships,
     home: store.getState().home,
   });
 });

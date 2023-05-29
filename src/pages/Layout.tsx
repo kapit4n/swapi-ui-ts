@@ -16,6 +16,7 @@ export default function Home() {
         <Link to="/films"  className={location.pathname === '/films'? "current": ""}>Films</Link>
         <Link to="/species"  className={location.pathname === '/species'? "current": ""}>Species</Link>
         <Link to="/vehicles"  className={location.pathname === '/vehicles'? "current": ""}>Vehicles</Link>
+        <Link to="/starships"  className={location.pathname === '/starships'? "current": ""}>Starships</Link>
       </div>
       <div className='main-container'>
         <InputSearch></InputSearch>
