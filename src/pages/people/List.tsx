@@ -9,13 +9,14 @@ import ListItem from "../../components/list-item";
 
 import { loadPeople, setCurrentPerson } from "../../actions/people";
 import { RootReducer } from '../../store';
-import { PERSON_LIST_FIELDS, PERSON_TITLE_FIELD, PERSON_IMAGE_PLACEHOLDER, PERSON_OBJECT_TYPE, PERSON_MAIN_ROUTE } from "../../constants";
+import { PERSON_LIST_FIELDS, PERSON_TITLE_FIELD, PERSON_OBJECT_TYPE, PERSON_MAIN_ROUTE } from "../../constants";
 
 type AppState = ReturnType<typeof RootReducer>;
 
 const mapStateToProps = (state: AppState) => ({
   loading: state.people.loading,
   list: state.people.list,
+  searchTerm: state.people.searchTerm
 });
 
 const mapDispatchToProps = ({
@@ -26,12 +27,12 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 interface PersonListProps extends ConnectedProps<typeof connector> { }
 
-export const PersonList: React.FC<PersonListProps> = ({ list, loadPeople }) => {
+export const PersonList: React.FC<PersonListProps> = ({ list, loadPeople, searchTerm }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    loadPeople()
-  }, [loadPeople])
+    loadPeople(searchTerm)
+  }, [loadPeople, searchTerm])
 
   const listItemDataPlaceholder: ListItemData = {
     titleField: PERSON_TITLE_FIELD,
@@ -46,11 +47,9 @@ export const PersonList: React.FC<PersonListProps> = ({ list, loadPeople }) => {
   }
 
   return (
-    <div>
-      <List title="PEOPLE">
-        {list.map((d: Person) => <ListItem data={{ ...listItemDataPlaceholder, dataSource: d }} onClickSetCurrent={onClickSetCurrent} />)}
-      </List>
-    </div>
+    <List title="PEOPLE">
+      {list.map((d: Person) => <ListItem data={{ ...listItemDataPlaceholder, dataSource: d }} onClickSetCurrent={onClickSetCurrent} />)}
+    </List>
   )
 }
 

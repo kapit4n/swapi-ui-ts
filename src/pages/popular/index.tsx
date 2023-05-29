@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect, ConnectedProps, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -40,6 +40,7 @@ type AppState = ReturnType<typeof RootReducer>;
 const mapStateToProps = (state: AppState) => ({
   popularPeople: state.people.popular,
   popularPlanets: state.planets.popular,
+  searchTerm: state.home.searchTerm
 });
 
 const mapDispatchToProps = ({});
@@ -48,13 +49,13 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 interface PopularProps extends ConnectedProps<typeof connector> { }
 
-export const Popular: React.FC<PopularProps> = ({ popularPeople, popularPlanets }) => {
+export const Popular: React.FC<PopularProps> = ({ popularPeople, popularPlanets, searchTerm }) => {
   const dispatch = useDispatch()
 
-  // cast values and sort them
-  const popularPeopleValues = Object.values(popularPeople)
-  // cast values and sort them
-  const popularPlanetsValues = Object.values(popularPlanets)
+  const popularPeopleValues = React.useMemo(() => Object.values(popularPeople), [popularPeople])
+  const popularPlanetsValues = React.useMemo(() => Object.values(popularPlanets), [popularPlanets])
+
+  const [valuesAfterSearch, setValuesAfterSearch] = React.useState([] as any[])
 
   const dataPlaceholder = (objectType: string) => {
     switch (objectType) {
@@ -67,9 +68,20 @@ export const Popular: React.FC<PopularProps> = ({ popularPeople, popularPlanets 
     }
   }
 
-  const popularValues = React.useMemo(() => {
-    return popularPeopleValues.length > 0  && popularPlanetsValues.length > 0
+  const allPopularItems = React.useMemo(() => {
+    return popularPeopleValues.concat(popularPlanetsValues).sort((a: any, b: any) => {
+      return b.visited - a.visited
+    });
   }, [popularPeopleValues, popularPlanetsValues])
+
+  const popularValues = React.useMemo(() => {
+    return popularPeopleValues.length > 0 && popularPlanetsValues.length > 0
+  }, [popularPeopleValues, popularPlanetsValues])
+
+  useEffect(() => {
+    const filteredValues = allPopularItems.filter(a => a.dataSource['name'].toLowerCase().includes(searchTerm))
+    setValuesAfterSearch(filteredValues)
+  }, [allPopularItems, searchTerm])
 
   const onClickSetCurrentItem = (id: string, objectType: string) => {
     switch (objectType) {
@@ -79,28 +91,23 @@ export const Popular: React.FC<PopularProps> = ({ popularPeople, popularPlanets 
       case PLANET_OBJECT_TYPE:
         dispatch(setCurrentPlanet(Number(id)));
         return;
-        default:
-          return dispatch(setCurrentPlanet(Number(id)));;
+      default:
+        return dispatch(setCurrentPlanet(Number(id)));;
     }
   }
 
-  const allPopularItems = React.useMemo(() => {
-    return popularPeopleValues.concat(popularPlanetsValues).sort((a: any, b: any) => {
-      return b.visited - a.visited
-    });
-  }, [popularPeopleValues, popularPlanetsValues])
 
   return (
-    <div>
+    <>
       {!popularValues && (
         <span> There is any data visited yet go to <Link to={`/${PERSON_MAIN_ROUTE}`}>People</Link> ,  <Link to={`/${PLANET_MAIN_ROUTE}`}>Planets</Link>routes</span>
       )}
 
       <List title="POPULAR ITEMS">
-        {allPopularItems.map((popular: PopularType) => <ListItem data={{...dataPlaceholder(popular.objectType), dataSource: { ...(popular.dataSource ? popular.dataSource: {}) , visited: popular.visited } }} onClickSetCurrent={onClickSetCurrentItem} />)}
+        {valuesAfterSearch.map((popular: PopularType) => <ListItem data={{ ...dataPlaceholder(popular.objectType), dataSource: { ...(popular.dataSource ? popular.dataSource : {}), visited: popular.visited } }} onClickSetCurrent={onClickSetCurrentItem} />)}
       </List>
 
-    </div>
+    </>
   )
 }
 

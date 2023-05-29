@@ -16,6 +16,7 @@ type AppState = ReturnType<typeof RootReducer>;
 const mapStateToProps = (state: AppState) => ({
   loading: state.planets.loading,
   list: state.planets.list,
+  searchTerm: state.planets.searchTerm
 });
 
 const mapDispatchToProps = ({
@@ -26,12 +27,12 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 interface PlanetListProps extends ConnectedProps<typeof connector> { }
 
-export const PersonList: React.FC<PlanetListProps> = ({ list, loadPlanets }) => {
+export const PersonList: React.FC<PlanetListProps> = ({ list, loadPlanets, searchTerm }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    loadPlanets()
-  }, [])
+    loadPlanets(searchTerm)
+  }, [searchTerm, loadPlanets])
 
   const listItemDataPlaceholder: ListItemData = {
     titleField: PLANET_TITLE_FIELD,
@@ -46,11 +47,9 @@ export const PersonList: React.FC<PlanetListProps> = ({ list, loadPlanets }) => 
   }
 
   return (
-    <div>
-      <List title="PLANETS">
-        {list.map((d: Person) => <ListItem data={{ ...listItemDataPlaceholder, dataSource: d }} onClickSetCurrent={onClickSetCurrent} />)}
-      </List>
-    </div>
+    <List title="PLANETS">
+      {list.map((d: Person) => <ListItem data={{ ...listItemDataPlaceholder, dataSource: d }} onClickSetCurrent={onClickSetCurrent} />)}
+    </List>
   )
 }
 

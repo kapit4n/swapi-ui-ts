@@ -7,7 +7,8 @@ import { loadPeople } from './actions/people';
 function App() {
 
   useEffect(() => {
-    loadPeople();
+    // Remove this
+    loadPeople("");
   }, [])
 
   return (

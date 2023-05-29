@@ -1,16 +1,21 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import "./Layout.css"
+import InputSearch from '../components/input-search'
+import { useEffect } from 'react'
 
 export default function Home() {
+
+  const location = useLocation()
 
   return (
     <div className="layout">
       <div className="navbar">
-        <Link to="/"><button>Home</button></Link>
-        <Link to="/people"><button>People</button></Link>
-        <Link to="/planets"><button>Planet</button></Link>
+        <Link to="/" className={location.pathname === '/'? "current": ""}>Home</Link>
+        <Link to="/people"  className={location.pathname === '/people'? "current": ""}>People</Link>
+        <Link to="/planets"  className={location.pathname === '/planets'? "current": ""}>Planet</Link>
       </div>
       <div className='main-container'>
+        <InputSearch></InputSearch>
         <Outlet />
       </div>
     </div>

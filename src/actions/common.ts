@@ -14,9 +14,9 @@ function getPlaceholderByType(objectType: string) {
 }
 
 export const loadAsyncCreator = (url: string, successAction: (data: any[]) => AnyAction, objectType: string) => { 
-  const fetcherAsync = () => async (dispatch: Dispatch) => {
+  const fetcherAsync = (searchTerm: string) => async (dispatch: Dispatch, getState: () => any) => {
     try {
-      const res = await axios.get(url)
+      const res = await axios.get(`${url}?search=${searchTerm}`)
       const data = res.data.results;
 
       const dataWrapper = data.map((d: any) => ({...d, imgPlaceholder: getPlaceholderByType(objectType)}))
