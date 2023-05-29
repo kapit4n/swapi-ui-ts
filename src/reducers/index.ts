@@ -27,6 +27,7 @@ function increaseVisitReducer(state: StateProps, action: ActionRedux) {
   const newPopularObject = {
     dataSource: action.payload.value,
     visited: popularObject?.visited ? popularObject.visited + 1 : 1,
+    objectType: action.payload.objectType
   };
   return Object.assign({}, state, {
     popular: {

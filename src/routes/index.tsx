@@ -1,5 +1,5 @@
-import Home from "../pages/Layout";
 import { createBrowserRouter } from "react-router-dom"
+import Layout from "../pages/Layout";
 import People from "../pages/people/List";
 import Planets from "../pages/planets/List";
 import Popular from "../pages/popular/index";
@@ -9,10 +9,10 @@ import PlanetDetails from "../pages/planets/Details";
 export const router = createBrowserRouter([
   {
     path:"/",
-    element: <Home />,
+    element: <Layout />,
     children: [
       {
-        path:"/popular",
+        path:"/",
         element: <Popular />
       },
       {

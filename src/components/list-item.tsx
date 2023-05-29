@@ -6,8 +6,8 @@ export default function ListItem({ data, onClickSetCurrent }: ListItemProps) {
   return (
     <div className='list-item'>
       <div className='list-item-header'>
-        <Link to={`/${data.mainRoute}/details/${data.dataSource.id}`} onClick={() => onClickSetCurrent(data.dataSource['id'])}>
-          <h2 className="list-item-title">{data.dataSource[data.titleField]}</h2>
+        <Link to={`/${data.mainRoute}/details/${data.dataSource.id}`} onClick={() => onClickSetCurrent(data.dataSource['id'], data.objectType)}>
+          {data.titleField && <h2 className="list-item-title">{data.dataSource[data.titleField]}</h2>}
         </Link>
         {data.dataSource.visited && (
           <span>{data.dataSource.visited} times visited</span>
@@ -16,10 +16,10 @@ export default function ListItem({ data, onClickSetCurrent }: ListItemProps) {
       <div className="list-item-secondary">
         <img className='img-placeholder-list' src={data.dataSource.imgPlaceholder} alt="placeholder"/>
         <div className="list-item-fields">
-          {data.descriptionFields.map(fieldName => (
+          {data.descriptionFields?.map(fieldName => (
             <div className="description-item" key={fieldName}>
               <h3>{transform(fieldName)}:</h3>
-              <p>{data.dataSource[fieldName]}</p>
+              <p>{data.dataSource[`${fieldName}`]}</p>
             </div>
           ))}
         </div>

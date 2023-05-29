@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import List from "../../components/list";
 import ListItem from "../../components/list-item";
 
-import { loadPeople, setCurrent } from "../../actions/people";
+import { loadPeople, setCurrentPerson } from "../../actions/people";
 import { RootReducer } from '../../store';
 import { PERSON_LIST_FIELDS, PERSON_TITLE_FIELD, PERSON_IMAGE_PLACEHOLDER, PERSON_OBJECT_TYPE, PERSON_MAIN_ROUTE } from "../../constants";
 
@@ -36,20 +36,19 @@ export const PersonList: React.FC<PersonListProps> = ({ list, loadPeople }) => {
   const listItemDataPlaceholder: ListItemData = {
     titleField: PERSON_TITLE_FIELD,
     descriptionFields: PERSON_LIST_FIELDS,
-    imagePlaceholder: PERSON_IMAGE_PLACEHOLDER,
     objectType: PERSON_OBJECT_TYPE,
     mainRoute: PERSON_MAIN_ROUTE,
     dataSource: {}
   }
 
   const onClickSetCurrent = (id: string) => {
-    dispatch(setCurrent(Number(id)))
+    dispatch(setCurrentPerson(Number(id)))
   }
 
   return (
     <div>
       <List title="PEOPLE">
-        {list.map((d: Person) => <ListItem data={{ ...listItemDataPlaceholder, dataSource: d }} route="people" onClickSetCurrent={onClickSetCurrent} />)}
+        {list.map((d: Person) => <ListItem data={{ ...listItemDataPlaceholder, dataSource: d }} onClickSetCurrent={onClickSetCurrent} />)}
       </List>
     </div>
   )

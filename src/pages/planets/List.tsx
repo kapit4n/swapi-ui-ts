@@ -9,7 +9,7 @@ import ListItem from "../../components/list-item";
 
 import { loadPlanets, setCurrentPlanet } from "../../actions/planets";
 import { RootReducer } from '../../store';
-import { PLANET_LIST_FIELDS, PLANET_TITLE_FIELD, PLANET_IMAGE_PLACEHOLDER, PLANET_OBJECT_TYPE, PLANET_MAIN_ROUTE } from "../../constants";
+import { PLANET_LIST_FIELDS, PLANET_TITLE_FIELD, PLANET_OBJECT_TYPE, PLANET_MAIN_ROUTE } from "../../constants";
 
 type AppState = ReturnType<typeof RootReducer>;
 
@@ -36,7 +36,6 @@ export const PersonList: React.FC<PlanetListProps> = ({ list, loadPlanets }) => 
   const listItemDataPlaceholder: ListItemData = {
     titleField: PLANET_TITLE_FIELD,
     descriptionFields: PLANET_LIST_FIELDS,
-    imagePlaceholder: PLANET_IMAGE_PLACEHOLDER,
     objectType: PLANET_OBJECT_TYPE,
     mainRoute: PLANET_MAIN_ROUTE,
     dataSource: {}
@@ -49,7 +48,7 @@ export const PersonList: React.FC<PlanetListProps> = ({ list, loadPlanets }) => 
   return (
     <div>
       <List title="PLANETS">
-        {list.map((d: Person) => <ListItem data={{ ...listItemDataPlaceholder, dataSource: d }} route="people" onClickSetCurrent={onClickSetCurrent} />)}
+        {list.map((d: Person) => <ListItem data={{ ...listItemDataPlaceholder, dataSource: d }} onClickSetCurrent={onClickSetCurrent} />)}
       </List>
     </div>
   )

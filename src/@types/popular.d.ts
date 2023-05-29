@@ -1,6 +1,7 @@
 interface PopularType {
   visited: number,
-  dataSource: Person
+  dataSource: any;
+  objectType: string;
 }
 
 interface KeyValue {
