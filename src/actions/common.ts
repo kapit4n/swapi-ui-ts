@@ -1,6 +1,6 @@
 import { AnyAction, Dispatch } from 'redux';
 import axios from 'axios';
-import { PERSON_IMAGE_PLACEHOLDER, PERSON_OBJECT_TYPE, PLANET_IMAGE_PLACEHOLDER, PLANET_OBJECT_TYPE } from '../constants';
+import { FILM_IMAGE_PLACEHOLDER, FILM_OBJECT_TYPE, PERSON_IMAGE_PLACEHOLDER, PERSON_OBJECT_TYPE, PLANET_IMAGE_PLACEHOLDER, PLANET_OBJECT_TYPE } from '../constants';
 
 function getPlaceholderByType(objectType: string) {
   switch (objectType) {
@@ -8,8 +8,10 @@ function getPlaceholderByType(objectType: string) {
       return PERSON_IMAGE_PLACEHOLDER;
     case PLANET_OBJECT_TYPE:
       return PLANET_IMAGE_PLACEHOLDER;
+    case FILM_OBJECT_TYPE:
+      return FILM_IMAGE_PLACEHOLDER;
     default:
-      return ""
+      return "NO PLACEHOLDER IMAGE"
   }
 }
 

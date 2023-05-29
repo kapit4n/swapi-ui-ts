@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 
 import List from "../../components/list";
 import ListItem from "../../components/list-item";
-import { PERSON_LIST_FIELDS, PERSON_MAIN_ROUTE, PERSON_OBJECT_TYPE, PERSON_TITLE_FIELD } from "../../constants";
+import { FILM_LIST_FIELDS, FILM_MAIN_ROUTE, FILM_OBJECT_TYPE, FILM_TITLE_FIELD, PERSON_LIST_FIELDS, PERSON_MAIN_ROUTE, PERSON_OBJECT_TYPE, PERSON_TITLE_FIELD } from "../../constants";
 import { PLANET_LIST_FIELDS, PLANET_MAIN_ROUTE, PLANET_OBJECT_TYPE, PLANET_TITLE_FIELD } from "../../constants";
 import { setCurrentPerson } from "../../actions/people";
 import { setCurrentPlanet } from "../../actions/planets";
 
 import { RootReducer } from '../../store';
+import { setCurrentFilm } from '../../actions/films';
 
 const basicListItemDataPlaceholder: ListItemData = {
   titleField: "",
@@ -35,11 +36,20 @@ const planetsListItemDataPlaceholder: ListItemData = {
   mainRoute: PLANET_MAIN_ROUTE
 }
 
+const filmsListItemDataPlaceholder: ListItemData = {
+  titleField: FILM_TITLE_FIELD,
+  descriptionFields: FILM_LIST_FIELDS,
+  dataSource: {},
+  objectType: FILM_OBJECT_TYPE,
+  mainRoute: FILM_MAIN_ROUTE
+}
+
 type AppState = ReturnType<typeof RootReducer>;
 
 const mapStateToProps = (state: AppState) => ({
   popularPeople: state.people.popular,
   popularPlanets: state.planets.popular,
+  popularFilms: state.films.popular,
   searchTerm: state.home.searchTerm
 });
 
@@ -49,11 +59,12 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 interface PopularProps extends ConnectedProps<typeof connector> { }
 
-export const Popular: React.FC<PopularProps> = ({ popularPeople, popularPlanets, searchTerm }) => {
+export const Popular: React.FC<PopularProps> = ({ popularPeople, popularPlanets, searchTerm, popularFilms }) => {
   const dispatch = useDispatch()
 
   const popularPeopleValues = React.useMemo(() => Object.values(popularPeople), [popularPeople])
   const popularPlanetsValues = React.useMemo(() => Object.values(popularPlanets), [popularPlanets])
+  const popularFilmsValues = React.useMemo(() => Object.values(popularFilms), [popularFilms])
 
   const [valuesAfterSearch, setValuesAfterSearch] = React.useState([] as any[])
 
@@ -63,25 +74,23 @@ export const Popular: React.FC<PopularProps> = ({ popularPeople, popularPlanets,
         return peopleListItemDataPlaceholder;
       case PLANET_OBJECT_TYPE:
         return planetsListItemDataPlaceholder;
+      case FILM_OBJECT_TYPE:
+        return filmsListItemDataPlaceholder;
       default:
         return basicListItemDataPlaceholder;
     }
   }
 
   const allPopularItems = React.useMemo(() => {
-    return popularPeopleValues.concat(popularPlanetsValues).sort((a: any, b: any) => {
+    return popularPeopleValues.concat(popularPlanetsValues).concat(popularFilmsValues).sort((a: any, b: any) => {
       return b.visited - a.visited
     });
-  }, [popularPeopleValues, popularPlanetsValues])
+  }, [popularPeopleValues, popularPlanetsValues, popularFilmsValues])
 
   const popularValues = React.useMemo(() => {
     return popularPeopleValues.length > 0 && popularPlanetsValues.length > 0
   }, [popularPeopleValues, popularPlanetsValues])
 
-  useEffect(() => {
-    const filteredValues = allPopularItems.filter(a => a.dataSource['name'].toLowerCase().includes(searchTerm))
-    setValuesAfterSearch(filteredValues)
-  }, [allPopularItems, searchTerm])
 
   const onClickSetCurrentItem = (id: string, objectType: string) => {
     switch (objectType) {
@@ -91,11 +100,27 @@ export const Popular: React.FC<PopularProps> = ({ popularPeople, popularPlanets,
       case PLANET_OBJECT_TYPE:
         dispatch(setCurrentPlanet(Number(id)));
         return;
+      case FILM_OBJECT_TYPE:
+        dispatch(setCurrentFilm(Number(id)));
+        return;
       default:
         return dispatch(setCurrentPlanet(Number(id)));;
     }
   }
 
+  useEffect(() => {
+    const filteredValues = allPopularItems.filter(a => {
+      let result = false;
+      if (a.objectType === FILM_OBJECT_TYPE) {
+        result = a.dataSource['title'].toLowerCase().includes(searchTerm)
+      } else {
+        result = a.dataSource['name'].toLowerCase().includes(searchTerm)
+      }
+
+      return result
+    })
+    setValuesAfterSearch(filteredValues)
+  }, [allPopularItems, searchTerm])
 
   return (
     <>

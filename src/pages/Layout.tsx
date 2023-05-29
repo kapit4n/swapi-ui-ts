@@ -12,7 +12,8 @@ export default function Home() {
       <div className="navbar">
         <Link to="/" className={location.pathname === '/'? "current": ""}>Home</Link>
         <Link to="/people"  className={location.pathname === '/people'? "current": ""}>People</Link>
-        <Link to="/planets"  className={location.pathname === '/planets'? "current": ""}>Planet</Link>
+        <Link to="/planets"  className={location.pathname === '/planets'? "current": ""}>Planets</Link>
+        <Link to="/films"  className={location.pathname === '/films'? "current": ""}>Films</Link>
       </div>
       <div className='main-container'>
         <InputSearch></InputSearch>

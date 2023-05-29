@@ -1,10 +1,12 @@
 import { createBrowserRouter } from "react-router-dom"
 import Layout from "../pages/Layout";
+import Popular from "../pages/popular/index";
 import People from "../pages/people/List";
 import Planets from "../pages/planets/List";
-import Popular from "../pages/popular/index";
+import Films from "../pages/films/List";
 import PersonDetails from "../pages/people/Details";
-import PlanetDetails from "../pages/planets/Details";
+import PlanetsDetails from "../pages/planets/Details";
+import FilmsDetails from "../pages/films/Details";
 
 export const router = createBrowserRouter([
   {
@@ -24,12 +26,20 @@ export const router = createBrowserRouter([
         element: <Planets />
       },
       {
+        path:"/films",
+        element: <Films />
+      },
+      {
         path:"people/details/:id",
         element: <PersonDetails />
       },
       {
         path:"planets/details/:id",
-        element: <PlanetDetails />
+        element: <PlanetsDetails />
+      },
+      {
+        path:"films/details/:id",
+        element: <FilmsDetails />
       },
     ]
   },

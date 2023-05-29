@@ -27,7 +27,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 interface PlanetListProps extends ConnectedProps<typeof connector> { }
 
-export const PersonList: React.FC<PlanetListProps> = ({ list, loadPlanets, searchTerm }) => {
+export const PlanetList: React.FC<PlanetListProps> = ({ list, loadPlanets, searchTerm }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -48,9 +48,9 @@ export const PersonList: React.FC<PlanetListProps> = ({ list, loadPlanets, searc
 
   return (
     <List title="PLANETS">
-      {list.map((d: Person) => <ListItem data={{ ...listItemDataPlaceholder, dataSource: d }} onClickSetCurrent={onClickSetCurrent} />)}
+      {list.map((d: Planet) => <ListItem data={{ ...listItemDataPlaceholder, dataSource: d }} onClickSetCurrent={onClickSetCurrent} />)}
     </List>
   )
 }
 
-export default connector(PersonList)
+export default connector(PlanetList)

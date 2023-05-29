@@ -3,15 +3,23 @@ import {
   PEOPLE_INCREASE_VISIT,
   SET_CURRENT,
 } from "../actions/people";
+
 import {
   GET_PLANETS,
   PLANETS_INCREASE_VISIT,
   PLANETS_SET_CURRENT,
 } from "../actions/planets";
-import { HOME_OR_POPULAR_PAGE, HOME_OR_POPULAR_PAGE_SEARCH_ACTION, PERSON_SEARCH_ACTION } from "../constants";
-import { PLANET_SEARCH_ACTION } from "../constants";
 
-type CurrentType = Person | Planet;
+import {
+  GET_FILMS,
+  FILMS_INCREASE_VISIT,
+  FILMS_SET_CURRENT,
+} from "../actions/films";
+
+import { HOME_OR_POPULAR_PAGE_SEARCH_ACTION, PERSON_SEARCH_ACTION } from "../constants";
+import { PLANET_SEARCH_ACTION, FILM_SEARCH_ACTION } from "../constants";
+
+type CurrentType = Person | Planet | Film;
 
 const initialState = {
   loading: true,
@@ -77,7 +85,6 @@ export const peopleReducer = (state = initialState, action: ActionRedux) => {
     case SET_CURRENT:
       return setCurrentReducer(state, action);
     case PERSON_SEARCH_ACTION:
-      console.log("XXXXX SEARCH ACTION", action);
       return Object.assign({}, state, {
         searchTerm: action.payload.searchTerm,
       });
@@ -95,7 +102,23 @@ export const planetsReducer = (state = initialState, action: ActionRedux) => {
     case PLANETS_SET_CURRENT:
       return setCurrentReducer(state, action);
     case PLANET_SEARCH_ACTION:
-      console.log("XXXXX SEARCH ACTION", action);
+      return Object.assign({}, state, {
+        searchTerm: action.payload.searchTerm,
+      });
+    default:
+      return state;
+  }
+};
+
+export const filmsReducer = (state = initialState, action: ActionRedux) => {
+  switch (action.type) {
+    case GET_FILMS:
+      return getDataReducer(state, action);
+    case FILMS_INCREASE_VISIT:
+      return increaseVisitReducer(state, action);
+    case FILMS_SET_CURRENT:
+      return setCurrentReducer(state, action);
+    case FILM_SEARCH_ACTION:
       return Object.assign({}, state, {
         searchTerm: action.payload.searchTerm,
       });

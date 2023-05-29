@@ -3,7 +3,7 @@ import {
   useLocation
 } from "react-router-dom";
 import { ConnectedProps, connect, useDispatch } from 'react-redux';
-import { HOME_OR_POPULAR_PAGE, HOME_OR_POPULAR_PAGE_SEARCH_ACTION, PERSON_OBJECT_TYPE, PERSON_SEARCH_ACTION, PLANET_OBJECT_TYPE, PLANET_SEARCH_ACTION } from '../../constants';
+import { FILM_OBJECT_TYPE, FILM_SEARCH_ACTION, HOME_OR_POPULAR_PAGE, HOME_OR_POPULAR_PAGE_SEARCH_ACTION, PERSON_OBJECT_TYPE, PERSON_SEARCH_ACTION, PLANET_OBJECT_TYPE, PLANET_SEARCH_ACTION } from '../../constants';
 import { loadPeople } from '../../actions/people';
 import { loadPlanets } from '../../actions/planets';
 import { RootReducer } from '../../store';
@@ -14,6 +14,7 @@ type AppState = ReturnType<typeof RootReducer>;
 const mapStateToProps = (state: AppState) => ({
   searchTermPeople: state.people.searchTerm,
   searchTermPlanets: state.planets.searchTerm,
+  searchTermFilms: state.films.searchTerm,
   searchTermHome: state.home.searchTerm,
 });
 
@@ -26,7 +27,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 interface InputSearchProps extends ConnectedProps<typeof connector> { }
 
 
-export const InputSearch: React.FC<InputSearchProps> = ({ loadPeople, searchTermPeople, searchTermPlanets, searchTermHome, loadPlanets }) => {
+export const InputSearch: React.FC<InputSearchProps> = ({ searchTermPeople, searchTermPlanets, searchTermHome, searchTermFilms }) => {
 
   const [searchTerm, setSearchTerm] = React.useState("")
   let location = useLocation();
@@ -42,16 +43,19 @@ export const InputSearch: React.FC<InputSearchProps> = ({ loadPeople, searchTerm
   const objectType = React.useMemo(() => {
     const containsPeople = location.pathname.includes(PERSON_OBJECT_TYPE)
     const containsPlanet = location.pathname.includes(PLANET_OBJECT_TYPE)
+    const containsFilm = location.pathname.includes(FILM_OBJECT_TYPE)
     const isHome = location.pathname == "/"
     
-    console.log(location.pathname)
-    console.log(isHome)
     if (containsPeople) {
       return PERSON_OBJECT_TYPE;
     }
 
     if (containsPlanet) {
       return PLANET_OBJECT_TYPE
+    }
+
+    if (containsFilm) {
+      return FILM_OBJECT_TYPE
     }
 
     if (isHome) {
@@ -65,16 +69,21 @@ export const InputSearch: React.FC<InputSearchProps> = ({ loadPeople, searchTerm
   useEffect(() => {
     switch (objectType) {
       case PERSON_OBJECT_TYPE:
-        setSearchTerm(searchTermPeople)
+        setSearchTerm(searchTermPeople || "")
         return;
       case PLANET_OBJECT_TYPE:
         setSearchTerm(searchTermPlanets || "");
         return;
+        
+      case FILM_OBJECT_TYPE:
+        setSearchTerm(searchTermFilms || "");
+        return;
+
       case HOME_OR_POPULAR_PAGE:
         setSearchTerm(searchTermHome)
         return;
     }
-  }, [location, objectType, searchTermPeople, searchTermPlanets, searchTermHome])
+  }, [location, objectType, searchTermPeople, searchTermPlanets, searchTermHome, searchTermFilms])
 
 
   const searchOnThePage = () => {
@@ -84,6 +93,10 @@ export const InputSearch: React.FC<InputSearchProps> = ({ loadPeople, searchTerm
         return;
       case PLANET_OBJECT_TYPE:
         dispatch({ type: PLANET_SEARCH_ACTION, payload: { searchTerm } });
+        return;
+      
+      case FILM_OBJECT_TYPE:
+        dispatch({ type: FILM_SEARCH_ACTION, payload: { searchTerm } });
         return;
       
       case HOME_OR_POPULAR_PAGE:
@@ -99,6 +112,10 @@ export const InputSearch: React.FC<InputSearchProps> = ({ loadPeople, searchTerm
         return;
       case PLANET_OBJECT_TYPE:
         dispatch({ type: PLANET_SEARCH_ACTION, payload: { searchTerm: "" } });
+        return;
+      
+      case FILM_OBJECT_TYPE:
+        dispatch({ type: FILM_SEARCH_ACTION, payload: { searchTerm: "" } });
         return;
       
       case HOME_OR_POPULAR_PAGE:

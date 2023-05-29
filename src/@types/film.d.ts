@@ -1,4 +1,5 @@
 interface Film {
+  id: number,
   title: string;
   episode_id: number;
   opening_crawl: string;
@@ -8,4 +9,5 @@ interface Film {
   created: string;
   edited: string;
   url: string;
+  imgPlaceholder: string;
 }
