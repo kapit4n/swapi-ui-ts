@@ -1,25 +1,20 @@
 import { Link } from 'react-router-dom'
 import "./list-item.css"
+import { transform } from '../utils';
 
-interface ListProps {
-  data: ListItemData;
-  route: string;
-  onClickSetCurrent: (data: string) => void
-}
-
-export default function ListItem({ data, onClickSetCurrent }: ListProps) {
-
-  const transform = (field: string) => {
-    return field.replaceAll("_", " ")
-  }
-
+export default function ListItem({ data, onClickSetCurrent }: ListItemProps) {
   return (
     <div className='list-item'>
-      <Link to={`/${data.mainRoute}/details/${data.dataSource.id}`} onClick={() => onClickSetCurrent(data.dataSource['id'])}>
-        <h2 className="list-item-title">{data.dataSource[data.titleField]}</h2>
-      </Link>
+      <div className='list-item-header'>
+        <Link to={`/${data.mainRoute}/details/${data.dataSource.id}`} onClick={() => onClickSetCurrent(data.dataSource['id'])}>
+          <h2 className="list-item-title">{data.dataSource[data.titleField]}</h2>
+        </Link>
+        {data.dataSource.visited && (
+          <span>{data.dataSource.visited} times visited</span>
+        )}
+      </div>
       <div className="list-item-secondary">
-        <img src={data.imagePlaceholder} height="100" alt="placeholder"/>
+        <img className='img-placeholder-list' src={data.dataSource.imgPlaceholder} alt="placeholder"/>
         <div className="list-item-fields">
           {data.descriptionFields.map(fieldName => (
             <div className="description-item" key={fieldName}>
@@ -28,7 +23,6 @@ export default function ListItem({ data, onClickSetCurrent }: ListProps) {
             </div>
           ))}
         </div>
-
       </div>
     </div>
   )

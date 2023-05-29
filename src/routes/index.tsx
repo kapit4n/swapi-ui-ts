@@ -1,8 +1,10 @@
 import Home from "../pages/Layout";
 import { createBrowserRouter } from "react-router-dom"
 import People from "../pages/people/List";
+import Planets from "../pages/planets/List";
 import Popular from "../pages/popular/index";
-import Details from "../pages/people/Details";
+import PersonDetails from "../pages/people/Details";
+import PlanetDetails from "../pages/planets/Details";
 
 export const router = createBrowserRouter([
   {
@@ -18,8 +20,16 @@ export const router = createBrowserRouter([
         element: <People />
       },
       {
-        path:"people/details/1",
-        element: <Details />
+        path:"/planets",
+        element: <Planets />
+      },
+      {
+        path:"people/details/:id",
+        element: <PersonDetails />
+      },
+      {
+        path:"planets/details/:id",
+        element: <PlanetDetails />
       },
     ]
   },

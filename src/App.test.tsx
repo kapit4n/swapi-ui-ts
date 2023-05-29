@@ -14,3 +14,9 @@ test('renders Popular button', () => {
   const linkElement = screen.getByText(/Popular/i);
   expect(linkElement).toBeInTheDocument();
 });
+
+test('renders Planet button', () => {
+  render(<App />);
+  const linkElement = screen.getByText(/Planet/i);
+  expect(linkElement).toBeInTheDocument();
+});

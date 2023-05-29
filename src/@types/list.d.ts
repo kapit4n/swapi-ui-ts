@@ -6,3 +6,9 @@ interface ListItemData {
   objectType: string;
   mainRoute: string;
 }
+
+interface ListItemProps {
+  data: ListItemData;
+  route: string;
+  onClickSetCurrent: (data: string) => void
+}

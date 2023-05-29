@@ -10,4 +10,5 @@ interface Planet {
   terrain: string;
   surface_water: string;
   url: string;
+  imgPlaceholder: string;
 }

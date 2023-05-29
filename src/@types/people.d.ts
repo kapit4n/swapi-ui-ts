@@ -11,4 +11,5 @@ interface Person {
   homeworld: string;
   created: string;
   url: string;
+  imgPlaceholder: string;
 }

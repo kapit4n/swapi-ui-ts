@@ -1,0 +1,14 @@
+.details-description .label {
+  font-weight: bold;
+}
+.details-deScription .value {
+  font-weight: bold;
+}
+
+.details-description .field-container {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+
