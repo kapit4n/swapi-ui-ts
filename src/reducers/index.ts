@@ -1,27 +1,9 @@
-import {
-  GET_PEOPLE,
-  PEOPLE_INCREASE_VISIT,
-  SET_CURRENT,
-} from "../actions/people";
 
-import {
-  GET_PLANETS,
-  PLANETS_INCREASE_VISIT,
-  PLANETS_SET_CURRENT,
-} from "../actions/planets";
+import { HOME_OR_POPULAR_PAGE_SEARCH_ACTION } from "../constants";
 
-import {
-  GET_FILMS,
-  FILMS_INCREASE_VISIT,
-  FILMS_SET_CURRENT,
-} from "../actions/films";
+type CurrentType = Person | Planet | Film | Specie;
 
-import { HOME_OR_POPULAR_PAGE_SEARCH_ACTION, PERSON_SEARCH_ACTION } from "../constants";
-import { PLANET_SEARCH_ACTION, FILM_SEARCH_ACTION } from "../constants";
-
-type CurrentType = Person | Planet | Film;
-
-const initialState = {
+export const initialState = {
   loading: true,
   list: [],
   popular: {} as KeyValue,
@@ -35,16 +17,16 @@ const homeInitialState = {
 
 type StateProps = typeof initialState;
 
-function getDataReducer(state: StateProps, action: ActionRedux) {
-  const peopleCast = action.payload.map((person: CurrentType) => {
-    const personTransformed = { ...person };
-    personTransformed.id = Number(person.url.split("/").slice(-2)[0]);
+export function getDataReducer(state: StateProps, action: ActionRedux) {
+  const peopleCast = action.payload.map((data: CurrentType) => {
+    const personTransformed = { ...data };
+    personTransformed.id = Number(data.url.split("/").slice(-2)[0]);
     return personTransformed;
   });
   return Object.assign({}, state, { list: peopleCast });
 }
 
-function increaseVisitReducer(state: StateProps, action: ActionRedux) {
+export function increaseVisitReducer(state: StateProps, action: ActionRedux) {
   const popularObject =
     state.popular[action.payload.value.id + `-${action.payload.objectType}`];
 
@@ -62,7 +44,7 @@ function increaseVisitReducer(state: StateProps, action: ActionRedux) {
   });
 }
 
-function setCurrentReducer(state: StateProps, action: ActionRedux) {
+export function setCurrentReducer(state: StateProps, action: ActionRedux) {
   let current: CurrentType = { ...state.current } as CurrentType;
   if (current.id === action.payload) {
     return state;
@@ -75,57 +57,6 @@ function setCurrentReducer(state: StateProps, action: ActionRedux) {
   }
   return Object.assign({}, state, { current });
 }
-
-export const peopleReducer = (state = initialState, action: ActionRedux) => {
-  switch (action.type) {
-    case GET_PEOPLE:
-      return getDataReducer(state, action);
-    case PEOPLE_INCREASE_VISIT:
-      return increaseVisitReducer(state, action);
-    case SET_CURRENT:
-      return setCurrentReducer(state, action);
-    case PERSON_SEARCH_ACTION:
-      return Object.assign({}, state, {
-        searchTerm: action.payload.searchTerm,
-      });
-    default:
-      return state;
-  }
-};
-
-export const planetsReducer = (state = initialState, action: ActionRedux) => {
-  switch (action.type) {
-    case GET_PLANETS:
-      return getDataReducer(state, action);
-    case PLANETS_INCREASE_VISIT:
-      return increaseVisitReducer(state, action);
-    case PLANETS_SET_CURRENT:
-      return setCurrentReducer(state, action);
-    case PLANET_SEARCH_ACTION:
-      return Object.assign({}, state, {
-        searchTerm: action.payload.searchTerm,
-      });
-    default:
-      return state;
-  }
-};
-
-export const filmsReducer = (state = initialState, action: ActionRedux) => {
-  switch (action.type) {
-    case GET_FILMS:
-      return getDataReducer(state, action);
-    case FILMS_INCREASE_VISIT:
-      return increaseVisitReducer(state, action);
-    case FILMS_SET_CURRENT:
-      return setCurrentReducer(state, action);
-    case FILM_SEARCH_ACTION:
-      return Object.assign({}, state, {
-        searchTerm: action.payload.searchTerm,
-      });
-    default:
-      return state;
-  }
-};
 
 export const homeReducer = (state = homeInitialState, action: ActionRedux) => {
   switch (action.type) {

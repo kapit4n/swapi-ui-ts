@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 
 import List from "../../components/list";
 import ListItem from "../../components/list-item";
-import { FILM_LIST_FIELDS, FILM_MAIN_ROUTE, FILM_OBJECT_TYPE, FILM_TITLE_FIELD, PERSON_LIST_FIELDS, PERSON_MAIN_ROUTE, PERSON_OBJECT_TYPE, PERSON_TITLE_FIELD } from "../../constants";
+import { FILM_LIST_FIELDS, FILM_MAIN_ROUTE, FILM_OBJECT_TYPE, FILM_TITLE_FIELD, PERSON_LIST_FIELDS, PERSON_MAIN_ROUTE, PERSON_OBJECT_TYPE, PERSON_TITLE_FIELD, SPECIE_LIST_FIELDS, SPECIE_MAIN_ROUTE, SPECIE_OBJECT_TYPE, SPECIE_TITLE_FIELD } from "../../constants";
 import { PLANET_LIST_FIELDS, PLANET_MAIN_ROUTE, PLANET_OBJECT_TYPE, PLANET_TITLE_FIELD } from "../../constants";
 import { setCurrentPerson } from "../../actions/people";
 import { setCurrentPlanet } from "../../actions/planets";
 
 import { RootReducer } from '../../store';
 import { setCurrentFilm } from '../../actions/films';
+import { setCurrentSpecie } from '../../actions/species';
 
 const basicListItemDataPlaceholder: ListItemData = {
   titleField: "",
@@ -44,12 +45,21 @@ const filmsListItemDataPlaceholder: ListItemData = {
   mainRoute: FILM_MAIN_ROUTE
 }
 
+const speciesListItemDataPlaceholder: ListItemData = {
+  titleField: SPECIE_TITLE_FIELD,
+  descriptionFields: SPECIE_LIST_FIELDS,
+  dataSource: {},
+  objectType: SPECIE_OBJECT_TYPE,
+  mainRoute: SPECIE_MAIN_ROUTE
+}
+
 type AppState = ReturnType<typeof RootReducer>;
 
 const mapStateToProps = (state: AppState) => ({
   popularPeople: state.people.popular,
   popularPlanets: state.planets.popular,
   popularFilms: state.films.popular,
+  popularSpecies: state.species.popular,
   searchTerm: state.home.searchTerm
 });
 
@@ -59,12 +69,13 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 interface PopularProps extends ConnectedProps<typeof connector> { }
 
-export const Popular: React.FC<PopularProps> = ({ popularPeople, popularPlanets, searchTerm, popularFilms }) => {
+export const Popular: React.FC<PopularProps> = ({ popularPeople, popularPlanets, searchTerm, popularFilms, popularSpecies }) => {
   const dispatch = useDispatch()
 
   const popularPeopleValues = React.useMemo(() => Object.values(popularPeople), [popularPeople])
   const popularPlanetsValues = React.useMemo(() => Object.values(popularPlanets), [popularPlanets])
   const popularFilmsValues = React.useMemo(() => Object.values(popularFilms), [popularFilms])
+  const popularSpeciesValues = React.useMemo(() => Object.values(popularSpecies), [popularSpecies])
 
   const [valuesAfterSearch, setValuesAfterSearch] = React.useState([] as any[])
 
@@ -76,16 +87,18 @@ export const Popular: React.FC<PopularProps> = ({ popularPeople, popularPlanets,
         return planetsListItemDataPlaceholder;
       case FILM_OBJECT_TYPE:
         return filmsListItemDataPlaceholder;
+      case SPECIE_OBJECT_TYPE:
+        return speciesListItemDataPlaceholder;
       default:
         return basicListItemDataPlaceholder;
     }
   }
 
   const allPopularItems = React.useMemo(() => {
-    return popularPeopleValues.concat(popularPlanetsValues).concat(popularFilmsValues).sort((a: any, b: any) => {
+    return popularPeopleValues.concat(popularPlanetsValues).concat(popularFilmsValues).concat(popularSpeciesValues).sort((a: any, b: any) => {
       return b.visited - a.visited
     });
-  }, [popularPeopleValues, popularPlanetsValues, popularFilmsValues])
+  }, [popularPeopleValues, popularPlanetsValues, popularFilmsValues, popularSpeciesValues])
 
   const popularValues = React.useMemo(() => {
     return popularPeopleValues.length > 0 && popularPlanetsValues.length > 0
@@ -103,6 +116,11 @@ export const Popular: React.FC<PopularProps> = ({ popularPeople, popularPlanets,
       case FILM_OBJECT_TYPE:
         dispatch(setCurrentFilm(Number(id)));
         return;
+        
+      case SPECIE_OBJECT_TYPE:
+        dispatch(setCurrentSpecie(Number(id)));
+        return;
+
       default:
         return dispatch(setCurrentPlanet(Number(id)));;
     }

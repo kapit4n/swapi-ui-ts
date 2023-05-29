@@ -1,4 +1,5 @@
 interface Specie {
+  id: number;
   name: string;
   classification: string;
   designation: string;
@@ -10,4 +11,6 @@ interface Specie {
   homeworld: string;
   created: string;
   edited: string;
+  imgPlaceholder: string;
+  url: string;
 }
