@@ -48,7 +48,7 @@ export const PlanetList: React.FC<PlanetListProps> = ({ list, loadPlanets, searc
 
   return (
     <List title="PLANETS">
-      {list.map((d: Planet) => <ListItem data={{ ...listItemDataPlaceholder, dataSource: d }} onClickSetCurrent={onClickSetCurrent} />)}
+      {list.map((d: Planet) => <ListItem key={`planets-${d.id}`} data={{ ...listItemDataPlaceholder, dataSource: d }} onClickSetCurrent={onClickSetCurrent} />)}
     </List>
   )
 }

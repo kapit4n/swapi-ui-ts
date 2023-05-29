@@ -48,7 +48,7 @@ export const PersonList: React.FC<PersonListProps> = ({ list, loadPeople, search
 
   return (
     <List title="PEOPLE">
-      {list.map((d: Person) => <ListItem data={{ ...listItemDataPlaceholder, dataSource: d }} onClickSetCurrent={onClickSetCurrent} />)}
+      {list.map((d: Person) => <ListItem  key={`people-${d.id}`}  data={{ ...listItemDataPlaceholder, dataSource: d }} onClickSetCurrent={onClickSetCurrent} />)}
     </List>
   )
 }

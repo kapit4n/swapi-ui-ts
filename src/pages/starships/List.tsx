@@ -48,7 +48,7 @@ export const FilmList: React.FC<FilmListProps> = ({ list, loadStarships, searchT
 
   return (
     <List title="VEHICLE">
-      {list.map((d: Startship) => <ListItem data={{ ...listItemDataPlaceholder, dataSource: d }} onClickSetCurrent={onClickSetCurrent} />)}
+      {list.map((d: Startship) => <ListItem key={`starships-${d.id}`}  data={{ ...listItemDataPlaceholder, dataSource: d }} onClickSetCurrent={onClickSetCurrent} />)}
     </List>
   )
 }

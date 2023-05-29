@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Dispatch } from 'redux';
 import { loadAsyncCreator } from './common';
 import { API_URL, PERSON_OBJECT_TYPE } from '../constants';

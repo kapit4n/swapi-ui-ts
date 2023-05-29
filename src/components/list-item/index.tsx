@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import "./list-item.css"
-import { transform } from '../utils';
+import "./index.css"
+import { transform } from '../../utils';
 
 export default function ListItem({ data, onClickSetCurrent }: ListItemProps) {
   return (

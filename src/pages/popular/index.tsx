@@ -4,7 +4,12 @@ import { Link } from 'react-router-dom';
 
 import List from "../../components/list";
 import ListItem from "../../components/list-item";
-import { basicListItemDataPlaceholder, FILM_OBJECT_TYPE, filmsListItemDataPlaceholder, peopleListItemDataPlaceholder, PERSON_MAIN_ROUTE, PERSON_OBJECT_TYPE, planetsListItemDataPlaceholder, SPECIE_OBJECT_TYPE, speciesListItemDataPlaceholder, STARSHIP_OBJECT_TYPE, starshipsListItemDataPlaceholder, VEHICLE_OBJECT_TYPE, vehiclesListItemDataPlaceholder } from "../../constants";
+import {
+  basicListItemDataPlaceholder, FILM_OBJECT_TYPE, filmsListItemDataPlaceholder,
+  peopleListItemDataPlaceholder, PERSON_MAIN_ROUTE, PERSON_OBJECT_TYPE,
+  planetsListItemDataPlaceholder, SPECIE_OBJECT_TYPE, speciesListItemDataPlaceholder, STARSHIP_OBJECT_TYPE,
+  starshipsListItemDataPlaceholder, VEHICLE_OBJECT_TYPE, vehiclesListItemDataPlaceholder
+} from "../../constants";
 import { PLANET_MAIN_ROUTE, PLANET_OBJECT_TYPE } from "../../constants";
 import { setCurrentPerson } from "../../actions/people";
 import { setCurrentPlanet } from "../../actions/planets";
@@ -33,7 +38,10 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 interface PopularProps extends ConnectedProps<typeof connector> { }
 
-export const Popular: React.FC<PopularProps> = ({ popularPeople, popularPlanets, searchTerm, popularFilms, popularSpecies, popularVehicles, popularStarships }) => {
+export const Popular: React.FC<PopularProps> = ({
+  popularPeople, popularPlanets, searchTerm,
+  popularFilms, popularSpecies, popularVehicles,
+  popularStarships }) => {
   const dispatch = useDispatch()
 
   const popularPeopleValues = React.useMemo(() => Object.values(popularPeople), [popularPeople])
@@ -119,13 +127,20 @@ export const Popular: React.FC<PopularProps> = ({ popularPeople, popularPlanets,
   return (
     <>
       {!popularValues && (
-        <span> There is any data visited yet go to <Link to={`/${PERSON_MAIN_ROUTE}`}>People</Link> ,  <Link to={`/${PLANET_MAIN_ROUTE}`}>Planets</Link>routes</span>
+        <span> There is any data visited yet go to <Link to={`/${PERSON_MAIN_ROUTE}`}>People</Link> ,
+          <Link to={`/${PLANET_MAIN_ROUTE}`}>Planets</Link>routes</span>
       )}
-
       <List title="POPULAR ITEMS">
-        {valuesAfterSearch.map((popular: PopularType) => <ListItem data={{ ...dataPlaceholder(popular.objectType), dataSource: { ...(popular.dataSource ? popular.dataSource : {}), visited: popular.visited } }} onClickSetCurrent={onClickSetCurrentItem} />)}
-      </List>
+        {valuesAfterSearch.map((popular: PopularType) => (
+          <ListItem
+            key={`popular-${popular.objectType}-${popular.dataSource.id}`}
+            data={{
+              ...dataPlaceholder(popular.objectType),
+              dataSource: { ...(popular.dataSource ? popular.dataSource : {}), visited: popular.visited }
+            }}
+            onClickSetCurrent={onClickSetCurrentItem} />))}
 
+      </List>
     </>
   )
 }

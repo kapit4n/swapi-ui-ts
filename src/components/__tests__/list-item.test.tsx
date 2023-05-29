@@ -18,7 +18,7 @@ test('render title and fields', () => {
     onClickSetCurrent: () => { }
   }
 
-  render(<MemoryRouter><ListItem data={props.data} route={props.route} onClickSetCurrent={props.onClickSetCurrent} /></MemoryRouter>);
+  render(<MemoryRouter><ListItem data={props.data} onClickSetCurrent={props.onClickSetCurrent} /></MemoryRouter>);
 
   const nameLabel = screen.getByText(/name/i);
   expect(nameLabel).toBeInTheDocument();

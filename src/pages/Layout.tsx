@@ -1,7 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import "./Layout.css"
 import InputSearch from '../components/input-search'
-import { useEffect } from 'react'
 
 export default function Home() {
 
