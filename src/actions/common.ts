@@ -9,6 +9,8 @@ import {
   PLANET_OBJECT_TYPE,
   SPECIE_IMAGE_PLACEHOLDER,
   SPECIE_OBJECT_TYPE,
+  VEHICLE_IMAGE_PLACEHOLDER,
+  VEHICLE_OBJECT_TYPE,
 } from "../constants";
 
 function getPlaceholderByType(objectType: string) {
@@ -21,6 +23,8 @@ function getPlaceholderByType(objectType: string) {
       return FILM_IMAGE_PLACEHOLDER;
     case SPECIE_OBJECT_TYPE:
       return SPECIE_IMAGE_PLACEHOLDER;
+    case VEHICLE_OBJECT_TYPE:
+      return VEHICLE_IMAGE_PLACEHOLDER;
     default:
       return "NO PLACEHOLDER IMAGE";
   }

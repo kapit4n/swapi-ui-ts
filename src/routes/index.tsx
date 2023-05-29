@@ -5,10 +5,12 @@ import People from "../pages/people/List";
 import Planets from "../pages/planets/List";
 import Films from "../pages/films/List";
 import Species from "../pages/species/List";
+import Vehicles from "../pages/vehicles/List";
 import PersonDetails from "../pages/people/Details";
 import PlanetsDetails from "../pages/planets/Details";
 import FilmsDetails from "../pages/films/Details";
 import SpeciesDetails from "../pages/species/Details";
+import VehiclesDetails from "../pages/vehicles/Details";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +38,10 @@ export const router = createBrowserRouter([
         element: <Species />
       },
       {
+        path:"/vehicles",
+        element: <Vehicles />
+      },
+      {
         path:"people/details/:id",
         element: <PersonDetails />
       },
@@ -50,6 +56,10 @@ export const router = createBrowserRouter([
       {
         path:"species/details/:id",
         element: <SpeciesDetails />
+      },
+      {
+        path:"vehicles/details/:id",
+        element: <VehiclesDetails />
       },
     ]
   },

@@ -31,6 +31,65 @@ export const SPECIE_IMAGE_PLACEHOLDER = "https://i.redd.it/cpcvu8v4t9n81.jpg"
 export const SPECIE_OBJECT_TYPE = 'species'
 export const SPECIE_MAIN_ROUTE = 'species'
 export const SPECIE_SEARCH_ACTION = 'SPECIE_SEARCH_ACTION'
+  
+export const VEHICLE_LIST_FIELDS = ["model", "vehicle_class", "manufacturer", "length"]
+export const VEHICLE_DETAILS_FIELDS = ["model", "vehicle_class", "manufacturer", "length", "cost_in_credits", "crew", "passengers", "max_atmosphering_speed", "cargo_capacity", "consumables", "url"]
+export const VEHICLE_TITLE_FIELD = "name"
+export const VEHICLE_IMAGE_PLACEHOLDER = "https://www.freshnessmag.com/.image/t_share/MTM3NDYzNjQwNDA3MjIxNjc4/star-wars-vehicles.jpg"
+export const VEHICLE_OBJECT_TYPE = 'vehicles'
+export const VEHICLE_MAIN_ROUTE = 'vehicles'
+export const VEHICLE_SEARCH_ACTION = 'VEHICLE_SEARCH_ACTION'
 
 export const HOME_OR_POPULAR_PAGE = "HOME_OR_POPULAR_PAGE"
 export const HOME_OR_POPULAR_PAGE_SEARCH_ACTION = "HOME_OR_POPULAR_PAGE_SEARCH_ACTION"
+
+
+
+
+export const basicListItemDataPlaceholder: ListItemData = {
+  titleField: "",
+  descriptionFields: [""],
+  dataSource: {},
+  objectType: "",
+  mainRoute: ""
+}
+
+export const peopleListItemDataPlaceholder: ListItemData = {
+  titleField: PERSON_TITLE_FIELD,
+  descriptionFields: PERSON_LIST_FIELDS,
+  dataSource: {},
+  objectType: PERSON_OBJECT_TYPE,
+  mainRoute: PERSON_MAIN_ROUTE
+}
+
+export const planetsListItemDataPlaceholder: ListItemData = {
+  titleField: PLANET_TITLE_FIELD,
+  descriptionFields: PLANET_LIST_FIELDS,
+  dataSource: {},
+  objectType: PLANET_OBJECT_TYPE,
+  mainRoute: PLANET_MAIN_ROUTE
+}
+
+export const filmsListItemDataPlaceholder: ListItemData = {
+  titleField: FILM_TITLE_FIELD,
+  descriptionFields: FILM_LIST_FIELDS,
+  dataSource: {},
+  objectType: FILM_OBJECT_TYPE,
+  mainRoute: FILM_MAIN_ROUTE
+}
+
+export const speciesListItemDataPlaceholder: ListItemData = {
+  titleField: SPECIE_TITLE_FIELD,
+  descriptionFields: SPECIE_LIST_FIELDS,
+  dataSource: {},
+  objectType: SPECIE_OBJECT_TYPE,
+  mainRoute: SPECIE_MAIN_ROUTE
+}
+
+export const vehiclesListItemDataPlaceholder: ListItemData = {
+  titleField: VEHICLE_TITLE_FIELD,
+  descriptionFields: VEHICLE_LIST_FIELDS,
+  dataSource: {},
+  objectType: VEHICLE_OBJECT_TYPE,
+  mainRoute: VEHICLE_MAIN_ROUTE
+}

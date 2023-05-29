@@ -1,4 +1,5 @@
 interface Vehicle {
+  id: number;
   name: string;
   model: string;
   vehicle_class: string;
@@ -10,4 +11,6 @@ interface Vehicle {
   max_atmosphering_speed: string;
   cargo_capacity: string;
   consumables: string;
+  url: string;
+  imgPlaceholder: string;
 }

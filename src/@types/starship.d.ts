@@ -1,4 +1,5 @@
 interface Startship {
+  id: string;
   name: string;
   model: string;
   startship_class: string;
@@ -13,4 +14,6 @@ interface Startship {
   MGLT: string;
   cargo_capacity: string;
   consumables: string;
+  imgPlaceholder: string;
+  url: string;
 }

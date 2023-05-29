@@ -1,7 +1,7 @@
 
 import { HOME_OR_POPULAR_PAGE_SEARCH_ACTION } from "../constants";
 
-type CurrentType = Person | Planet | Film | Specie;
+type CurrentType = Person | Planet | Film | Specie | Vehicle;
 
 export const initialState = {
   loading: true,
